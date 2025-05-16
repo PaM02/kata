@@ -1,5 +1,6 @@
 package  com.test.kata_backend.service;
 
+import com.test.kata_backend.config.Common;
 import  com.test.kata_backend.dto.ProductRequest;
 import  com.test.kata_backend.entity.ProductEntity;
 import  com.test.kata_backend.repository.ProductRepository;
@@ -26,6 +27,10 @@ public class ProductService {
 
    public ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest){
 
+       if (!Common.emailFromToken.equals(Common.emailAdmin)) {
+           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied: only admin can create products");
+       }
+
        ProductEntity productEntity = new ProductEntity();
        productEntity.setName(productRequest.getName());
        productEntity.setDescription(productRequest.getDescription());
@@ -44,6 +49,10 @@ public class ProductService {
    }
 
    public ResponseEntity<String> updateProduct(@RequestBody ProductRequest productRequest){
+
+       if (!Common.emailFromToken.equals(Common.emailAdmin)) {
+           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied: only admin can create products");
+       }
        Optional<ProductEntity> productEntity = productRepository.findById(productRequest.getId());
 
        if(productEntity.isPresent()){
@@ -74,6 +83,9 @@ public class ProductService {
    }
 
    public ResponseEntity<String> removeProduct(Integer id){
+       if (!Common.emailFromToken.equals(Common.emailAdmin)) {
+           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied: only admin can create products");
+       }
        Optional<ProductEntity> productEntity =productRepository.findById(id);;
        if(productEntity.isPresent()){
            productRepository.delete(productEntity.get());

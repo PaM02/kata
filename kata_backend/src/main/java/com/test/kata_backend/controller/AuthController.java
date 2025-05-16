@@ -62,8 +62,8 @@ public class AuthController {
                     response.put("message", "Token expired");
                     return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
                 }
-                Integer userId = Integer.valueOf(jwtService.extractSubject(refreshToken));
-                String newToken = jwtService.generateToken(userId);
+                String email = jwtService.extractSubject(refreshToken);
+                String newToken = jwtService.generateToken(email);
 
                 if (newToken != null) {
                     response.put("new_token", newToken);

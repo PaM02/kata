@@ -2,6 +2,8 @@ package  com.test.kata_backend.security.filters;
 
 import java.util.Collections;
 import java.util.List;
+
+import com.test.kata_backend.config.Common;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -28,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
 
-    final private JwtService jwtService;
+    private final JwtService jwtService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -42,14 +45,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 isTokenValid = jwtService.isTokenValid(token);
                 if (isTokenValid) {
-                    Long userId = Long.valueOf(jwtService.extractSubject(token));
-
+                  String  email = jwtService.extractSubject(token);
+                   Common.emailFromToken=email;
                     List<GrantedAuthority> authorities = Collections.singletonList(
                             new SimpleGrantedAuthority("ROLE_USER")
                     );
 
-                    Authentication authentication = new UsernamePasswordAuthenticationToken(userId, null,
-                           authorities );
+                    Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, authorities );
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             } catch (SignatureException e) {
@@ -70,7 +72,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-    private String getTokenFromRequestHeader(String header) {
+    public String getTokenFromRequestHeader(String header) {
         if (header != null && header.startsWith(TOKEN_PREFIX)) {
             return header.substring(TOKEN_PREFIX.length());
         }

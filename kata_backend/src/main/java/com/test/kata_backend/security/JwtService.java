@@ -22,15 +22,15 @@ public class JwtService {
     // Clé secrète utilisée pour signer le token
     private static final byte[] JWT_SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512).getEncoded();
 
-    public String generateToken(Integer id) {
-        return createToken(id , TOKEN_EXPIRATION_TIME);
+    public String generateToken(String email) {
+        return createToken(email , TOKEN_EXPIRATION_TIME);
     }
 
-    private String createToken(Integer id, Long expirationTime) {
+    private String createToken(String email, Long expirationTime) {
         Integer tokenId = generateNewTokenId();
 
         String token = Jwts.builder()
-                .setSubject(id.toString())
+                .setSubject(email)
                 .claim("tokenId", tokenId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime * 1000))
@@ -42,8 +42,8 @@ public class JwtService {
         return token;
     }
 
-    public String generateRefreshToken(Integer id) {
-        return createToken(id , REFRESH_TOKEN_EXPIRATION_TIME);
+    public String generateRefreshToken(String email) {
+        return createToken(email , REFRESH_TOKEN_EXPIRATION_TIME);
     }
 
     private boolean isTokenExpired(String token) {

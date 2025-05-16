@@ -40,8 +40,8 @@ public class LoginWeb {
 
     private void processResponse(Map<String, Object> response, UsersEntity user) {
 
-        String refreshToken = jwtService.generateRefreshToken(user.getId());
-        String token = jwtService.generateToken(user.getId());
+        String refreshToken = jwtService.generateRefreshToken(user.getEmail());
+        String token = jwtService.generateToken(user.getEmail());
 
         response.put("user", user);
         response.put("token", token);
