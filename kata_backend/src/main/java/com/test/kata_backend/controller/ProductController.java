@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/product")
 public class ProductController {
     private final ProductService productService;
 
@@ -18,25 +19,24 @@ public class ProductController {
         return productService.retrieveAllProducts();
     }
 
-    @PostMapping("/create_product")
+    @PostMapping("/create")
     public ResponseEntity<String> createProductEntity(@RequestBody ProductRequest productRequest){
         return productService.createProduct(productRequest);
     }
 
-    @PostMapping("/update_product")
+    @PostMapping("/update")
     public ResponseEntity<String> updateProductEntity(@RequestBody ProductRequest productRequest){
       return   productService.updateProduct(productRequest);
     }
 
-    @DeleteMapping("/remove_product")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> removeProduct(
             @RequestParam("id")  Integer id){
         return productService.removeProduct(id);
     }
 
-    @GetMapping("/retrieve_product_by_id")
+    @GetMapping("/item")
     public ResponseEntity<ProductEntity> retrieveProductById(Integer id){
-
         return ResponseEntity.ok(productService.retrieveProductById(id));
     }
 

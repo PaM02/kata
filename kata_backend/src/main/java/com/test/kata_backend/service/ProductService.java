@@ -25,10 +25,10 @@ public class ProductService {
     }
 
 
-   public ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest){
+   public ResponseEntity<String> createProduct(ProductRequest productRequest){
 
        if (!Common.emailFromToken.equals(Common.emailAdmin)) {
-           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied: only admin can create products");
+           return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Common.accessDeniedMessage);
        }
 
        ProductEntity productEntity = new ProductEntity();
@@ -45,13 +45,13 @@ public class ProductService {
        productEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
        productEntity.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
        productRepository.save(productEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body(Common.productCreatedMessage);
    }
 
-   public ResponseEntity<String> updateProduct(@RequestBody ProductRequest productRequest){
+   public ResponseEntity<String> updateProduct(ProductRequest productRequest){
 
        if (!Common.emailFromToken.equals(Common.emailAdmin)) {
-           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied: only admin can create products");
+           return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Common.accessDeniedMessage);
        }
        Optional<ProductEntity> productEntity = productRepository.findById(productRequest.getId());
 
@@ -69,9 +69,9 @@ public class ProductService {
            productEntity.get().setCreatedAt(new Timestamp(System.currentTimeMillis()));
            productEntity.get().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
            productRepository.save(productEntity.get());
-           return ResponseEntity.status(HttpStatus.CREATED).body("Product saved successfully");
+           return ResponseEntity.status(HttpStatus.CREATED).body(Common.productSavedMessage);
        }else {
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Common.productNotFoundMessage);
        }
 
 
@@ -79,19 +79,19 @@ public class ProductService {
 
     public ProductEntity retrieveProductById(Integer id){
        return productRepository.findById(id)
-               .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
+               .orElseThrow(() -> new EntityNotFoundException(Common.productNotFoundMessage +" id: "+ id));
    }
 
    public ResponseEntity<String> removeProduct(Integer id){
        if (!Common.emailFromToken.equals(Common.emailAdmin)) {
-           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied: only admin can create products");
+           return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Common.accessDeniedMessage);
        }
        Optional<ProductEntity> productEntity =productRepository.findById(id);;
        if(productEntity.isPresent()){
            productRepository.delete(productEntity.get());
-           return ResponseEntity.ok("Product deleted successfully");
+           return ResponseEntity.ok(Common.productDeletedMessage);
        }else{
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Common.productNotFoundMessage);
        }
    }
 

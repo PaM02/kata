@@ -28,7 +28,7 @@ public class SecurityConfig  {
                 .disable()
                 .httpBasic().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/authentification/login", "/create_user", "/bart/login/refresh-token")
+                .requestMatchers("/authentification/login", "/user/create", "/bart/login/refresh-token")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -1,7 +1,7 @@
 package  com.test.kata_backend.service;
+import com.test.kata_backend.config.Common;
 import com.test.kata_backend.dto.UserRequest;
 import  com.test.kata_backend.entity.UsersEntity;
-import  com.test.kata_backend.exceptions.Exceptions;
 import  com.test.kata_backend.repository.UsersRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class UserService {
 
         if (usersRepository.findByUsername(userRequest.getUsername()).isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(Map.of("msg", "username_already_exists"));
+                    .body(Map.of(Common.message, Common.usernameExists));
         }
 
         UsersEntity user = UsersEntity.builder()
@@ -36,14 +36,9 @@ public class UserService {
 
         usersRepository.save(user);
 
-        return ResponseEntity.ok(Map.of("msg", "user_created_successfully"));
+        return ResponseEntity.ok(Map.of(Common.message, Common.userNameCreated));
     }
 
-
-    public  UsersEntity findUsersEntityById(Long id) {
-        return usersRepository.findById(Math.toIntExact(id))
-                .orElseThrow(() -> new Exceptions("Aucun utilisateur avec cet id " + id));
-    }
 
 
 }
