@@ -1,12 +1,9 @@
 package com.test.kata_backend.controller;
 import com.test.kata_backend.dto.WishListItemRequest;
-import com.test.kata_backend.entity.WishListItemEntity;
 import com.test.kata_backend.service.WishListItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor

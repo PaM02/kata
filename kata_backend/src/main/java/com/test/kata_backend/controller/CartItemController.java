@@ -1,13 +1,10 @@
 package com.test.kata_backend.controller;
 
 import com.test.kata_backend.dto.CartItemRequest;
-import com.test.kata_backend.entity.CartItemEntity;
 import com.test.kata_backend.service.CartItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor

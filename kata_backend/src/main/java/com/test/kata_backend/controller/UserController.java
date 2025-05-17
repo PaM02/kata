@@ -1,9 +1,5 @@
 package com.test.kata_backend.controller;
-
-import com.test.kata_backend.dto.ProductRequest;
 import com.test.kata_backend.dto.UserRequest;
-import com.test.kata_backend.repository.UsersRepository;
-import com.test.kata_backend.service.ProductService;
 import com.test.kata_backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -2,7 +2,7 @@ package  com.test.kata_backend.Tasks;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +10,11 @@ import  com.test.kata_backend.model.TokenCached;
 import  com.test.kata_backend.security.JwtService;
 
 @Component
+@AllArgsConstructor
 public class TokenCleanupTask {
 
-    @Autowired
-    JwtService tokenService;
+
+    private final JwtService tokenService;
 
     @Scheduled(fixedRate = 1800000) // Planifier la tâche toutes les 30 minutes
     public void cleanupExpiredTokens() {
