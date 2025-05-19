@@ -28,7 +28,7 @@ public class SecurityConfig  {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/authentification/login", "/user/create", "/bart/login/refresh-token")
+                    .requestMatchers("/authentification/login", "/user/create")
                     .permitAll()
                     .anyRequest()
                     .authenticated())

@@ -14,7 +14,7 @@
         </encoder>
     </appender>-->
 
-    <logger name="com.bartlot" level="DEBUG"/>
+    <logger name="com.test" level="DEBUG"/>
     <logger name="org.hibernate.SQL" level="DEBUG"/>
 
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="DEBUG"/>

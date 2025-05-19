@@ -18,7 +18,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        // Continuer si pas authentifié
         if (authentication != null) {
             authentication.isAuthenticated();
         }
