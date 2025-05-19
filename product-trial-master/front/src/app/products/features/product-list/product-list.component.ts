@@ -41,6 +41,7 @@ export class ProductListComponent implements OnInit {
   public readonly products = this.productsService.products;
 
   public isDialogVisible = false;
+  public isDialogAddTocart = false;
   public isCreation = false;
   public readonly editedProduct = signal<Product>(emptyProduct);
 
@@ -73,11 +74,19 @@ export class ProductListComponent implements OnInit {
     this.closeDialog();
   }
 
+  public addToCart(product: Product) {
+    this.isDialogAddTocart = true
+  }
+
   public onCancel() {
     this.closeDialog();
   }
 
   private closeDialog() {
     this.isDialogVisible = false;
+  }
+
+  public closeDialogAddToCart() {
+    this.isDialogAddTocart = false;
   }
 }
