@@ -1,4 +1,18 @@
 .app-content {
-    overflow: hidden;
-    height: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+
+.clickable-icon {
+  cursor: pointer;
+  color: gray;
+  transition: color 0.3s ease;
+}
+
+.clickable-icon:hover {
+  color: #007ad9;
+}
+
+.active-icon i {
+  color: #007ad9;
 }

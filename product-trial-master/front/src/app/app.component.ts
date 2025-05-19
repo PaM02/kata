@@ -4,6 +4,7 @@ import {
 import { RouterModule } from "@angular/router";
 import { SplitterModule } from 'primeng/splitter';
 import { ToolbarModule } from 'primeng/toolbar';
+import { Router } from '@angular/router';
 import { PanelMenuComponent } from "./shared/ui/panel-menu/panel-menu.component";
 
 @Component({
