@@ -1,1 +1,17 @@
-<p>contact-form works!</p>
+<div class="card">
+  <form [formGroup]="editForm" (ngSubmit)="onFormSubmit()">
+    <div class="form-field">
+      <label style="padding-top: 2%;" class="form-label" for="email">Email</label>
+      <input pInputText class="form-control" formControlName="email" id="email" type="email" placeholder="email">
+    </div>
+    <div class="form-field">
+      <label class="form-label" for="message">message</label>
+      <textarea pInputTextarea class="form-control" formControlName="message" id="message" type="textarea" maxlength="3"
+        placeholder="message">
+        </textarea>
+    </div>
+    <div class="flex justify-content-center">
+      <p-button type="submit" label="Envoyer" [disabled]="editForm.invalid" severity="primary" />
+    </div>
+  </form>
+</div>

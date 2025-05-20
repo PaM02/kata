@@ -1,0 +1,31 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+
+  margin-left: 10%;
+  margin-right: 10%;
+
+  .p-dropdown,
+  .p-inputnumber {
+    width: 100%;
+  }
+}
+
+
+
+.card {
+  box-sizing: border-box;
+  width: 80%;
+  margin: auto;
+  margin-top: 10%;
+  box-shadow: rgba(211, 211, 211, 1) 3px 3px 7px 7px;
+
+  height: 40%;
+  transition: background-color 0.3s ease;
+  justify-content: center;
+}
+
+.card:hover {
+  box-shadow: rgb(230, 230, 230, 1) 3px 3px 7px 7px;
+}
