@@ -10,6 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
 import { BadgeModule } from 'primeng/badge';
 import { InputTextModule } from "primeng/inputtext";
+import { InputNumberModule } from "primeng/inputnumber";
 const emptyCart: Cart = {
   id: 0,
   code: "",
@@ -30,7 +31,7 @@ const emptyCart: Cart = {
 @Component({
   selector: 'app-cart-list',
   standalone: true,
-  imports: [DataViewModule, CardModule, InputTextModule, RatingModule, FormsModule, ButtonModule, DialogModule, CommonModule, BadgeModule],
+  imports: [DataViewModule, CardModule, InputNumberModule, InputTextModule, RatingModule, FormsModule, ButtonModule, DialogModule, CommonModule, BadgeModule],
   templateUrl: './cart-list.component.html',
   styleUrl: './cart-list.component.css'
 })
@@ -56,21 +57,30 @@ export class CartListComponent implements OnInit {
   }
 
   public onDelete(cart: Cart) {
-    const existingItem = this._cart.find(item => item.id === cart.id);
-    if (existingItem !== undefined && existingItem.quantity > 1) {
-      existingItem.quantity -= 1;
-    } else {
-      this._cart = this._cart.filter(p => p.id !== cart.id);
-    }
-    this.quantities = this.quantitiesOfProducts(this._cart);
-    localStorage.removeItem("cart");
-    localStorage.setItem('cart', JSON.stringify(this._cart));
+    this._cart = this._cart.filter(p => p.id !== cart.id);
+    this.updateLocalStorage();
   }
 
   public quantitiesOfProducts(carts: Cart[]) {
     return carts.reduce((total: number, item: any) => total + item.quantity, 0)
   }
 
+  updateQuantity(cart: Cart) {
+    const existingItem = this._cart.find(item => item.id === cart.id);
+    if (existingItem !== undefined && cart.quantity > 0) {
+      existingItem.quantity = cart.quantity;
+    } else {
+      this._cart = this._cart.filter(p => p.id !== cart.id);
+    }
+    this.updateLocalStorage();
+  }
+
+  updateLocalStorage() {
+
+    this.quantities = this.quantitiesOfProducts(this._cart);
+    localStorage.removeItem("cart");
+    localStorage.setItem('cart', JSON.stringify(this._cart));
+  }
 
   public onCancel() {
     this.closeDialog();

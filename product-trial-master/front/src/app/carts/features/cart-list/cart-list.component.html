@@ -17,9 +17,11 @@
         }">
         {{ cart.inventoryStatus }}
       </span>
-      <div class="text-lg font-bold text-color-secondary mt-2"> Quantité : {{ cart.quantity }}</div>
+
       <p-rating [(ngModel)]="cart.rating" [readonly]="true" [cancel]="false"></p-rating>
       <div class="text-xs text-600 mt-1">Ajouté le : {{ cart.createdAt | date:'short' }}</div>
+      <p-inputNumber [(ngModel)]="cart.quantity" [showButtons]="true" buttonLayout="horizontal"
+        incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" (ngModelChange)="updateQuantity(cart)" />
 
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">

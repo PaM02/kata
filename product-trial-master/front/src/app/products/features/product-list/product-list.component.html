@@ -24,6 +24,11 @@
       <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
       <div class="text-xs text-600 mt-1">Ajouté le : {{ product.createdAt | date:'short' }}</div>
 
+
+      <p-inputNumber [(ngModel)]="product.quantity" [showButtons]="true" buttonLayout="horizontal"
+        incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" styleClass="w-4rem text-center" />
+
+
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">
           <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)" />
@@ -35,20 +40,7 @@
     }
   </ng-template>
 </p-dataView>
-
-<p-dialog [(visible)]="isDialogAddTocart" [style]="{ width: '400px', borderRadius: '12px' }"
-  contentStyleClass="flex flex-col p-5" [showHeader]="false">
-  <div class="text-green-600 text-4xl">
-    <i class="pi pi-check-circle"></i>
-  </div>
-  <p class="text-gray-600 mb-4">Le produit a été ajouté au panier avec succès.</p>
-  <div>
-    <p-button pButton [style]="{ height:'10px' }" type="button" (click)="closeDialogAddToCart()" label="Continuer"
-      severity="help"></p-button>
-  </div>
-
-</p-dialog>
-
+<p-toast />
 <p-dialog [(visible)]="isDialogVisible" [style]="{ width: '50vw' }" header="Ajout/Edition produit">
   <app-product-form [product]="editedProduct()" (save)="onSave($event)" (cancel)="onCancel()" />
 </p-dialog>

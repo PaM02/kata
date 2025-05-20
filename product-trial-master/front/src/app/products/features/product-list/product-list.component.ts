@@ -4,12 +4,15 @@ import { FormsModule } from "@angular/forms";
 import { Product } from "app/products/data-access/product.model";
 import { ProductsService } from "app/products/data-access/products.service";
 import { ProductFormComponent } from "app/products/ui/product-form/product-form.component";
+import { MessageService } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextModule } from "primeng/inputtext";
 import { RatingModule } from 'primeng/rating';
+import { ToastModule } from 'primeng/toast';
 
 
 const emptyProduct: Product = {
@@ -34,22 +37,24 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule,
-    InputTextModule, RatingModule, FormsModule, ButtonModule, DialogModule, ProductFormComponent, CommonModule],
+  imports: [DataViewModule, CardModule, InputNumberModule,
+    InputTextModule, ToastModule, RatingModule, FormsModule, ButtonModule, DialogModule, ProductFormComponent, CommonModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   public readonly products = this.productsService.products;
   searchText!: string;
   public isDialogVisible = false;
-  public isDialogAddTocart = false;
   public isCreation = false;
   public readonly editedProduct = signal<Product>(emptyProduct);
   private _cart: Product[] = [];
 
+  constructor(private messageService: MessageService) { }
+
   ngOnInit() {
     this.productsService.get().subscribe();
   }
+
 
   public onCreate() {
     this.isCreation = true;
@@ -77,20 +82,19 @@ export class ProductListComponent implements OnInit {
   }
 
   public addToCart(product: Product) {
-    this.isDialogAddTocart = true;
-
     const saved = localStorage.getItem('cart');
     this._cart = saved ? JSON.parse(saved) : [];
 
     const existingItem = this._cart.find(item => item.id === product.id);
 
     if (existingItem) {
-      existingItem.quantity += 1;
+      existingItem.quantity += product.quantity;
     } else {
-      this._cart.push({ ...product, quantity: 1 });
+      this._cart.push(product);
     }
 
     localStorage.setItem('cart', JSON.stringify(this._cart));
+    this.showMessage();
   }
 
 
@@ -105,6 +109,10 @@ export class ProductListComponent implements OnInit {
     );
   }
 
+  showMessage() {
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Le produit a été ajouté au panier avec succès', life: 3000 });
+  }
+
 
   public onCancel() {
     this.closeDialog();
@@ -114,7 +122,5 @@ export class ProductListComponent implements OnInit {
     this.isDialogVisible = false;
   }
 
-  public closeDialogAddToCart() {
-    this.isDialogAddTocart = false;
-  }
+
 }

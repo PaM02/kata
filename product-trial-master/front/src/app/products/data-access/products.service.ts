@@ -19,7 +19,10 @@ import { catchError, Observable, of, tap } from "rxjs";
       catchError((error) => {
         return this.http.get<Product[]>("assets/products.json");
       }),
-      tap((products) => this._products.set(products)),
+      tap((products) => {
+        const updated = products.map(p => ({ ...p, quantity: 1 }));
+        this._products.set(updated);
+      }),
     );
   }
 
