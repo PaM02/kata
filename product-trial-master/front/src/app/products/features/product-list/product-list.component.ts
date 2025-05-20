@@ -44,6 +44,7 @@ export class ProductListComponent implements OnInit {
   public isDialogAddTocart = false;
   public isCreation = false;
   public readonly editedProduct = signal<Product>(emptyProduct);
+  private _cart: Product[] = [];
 
   ngOnInit() {
     this.productsService.get().subscribe();
@@ -75,8 +76,24 @@ export class ProductListComponent implements OnInit {
   }
 
   public addToCart(product: Product) {
-    this.isDialogAddTocart = true
+    this.isDialogAddTocart = true;
+
+    const saved = localStorage.getItem('cart');
+    this._cart = saved ? JSON.parse(saved) : [];
+
+    const existingItem = this._cart.find(item => item.id === product.id);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      this._cart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(this._cart));
   }
+
+
+
 
   public onCancel() {
     this.closeDialog();

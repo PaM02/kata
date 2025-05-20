@@ -1,1 +1,31 @@
-<p>cart-list works!</p>
+<p-dataView #dv [value]="_cart">
+  <ng-template pTemplate="list" let-carts>
+    <h1 class="text-center">Quantité de produits dans le panier :
+      <i class="pi pi-shopping-cart" style="font-size: 2rem" pBadge [value]="quantities"></i>
+    </h1>
+    @for (cart of carts; track cart) {
+    <p-card class="block mb-2">
+      <span class="font-medium text-secondary text-sm">{{ cart.category }}</span>
+      <div class="text-lg font-medium text-900 mt-2">{{ cart.name }}</div>
+      <div class="text-sm text-700 mt-1">{{ cart.description }}</div>
+      <div class="text-lg font-bold text-primary mt-2">{{ cart.price }} FCFA</div>
+      <span class="text-xs" [ngClass]="{
+          'text-green-500': cart.inventoryStatus === 'INSTOCK',
+          'text-orange-500': cart.inventoryStatus === 'LOWSTOCK',
+          'text-red-500': cart.inventoryStatus === 'OUTOFSTOCK'
+        }">
+        {{ cart.inventoryStatus }}
+      </span>
+      <div class="text-lg font-bold text-color-secondary mt-2"> Quantité : {{ cart.quantity }}</div>
+      <p-rating [(ngModel)]="cart.rating" [readonly]="true" [cancel]="false"></p-rating>
+      <div class="text-xs text-600 mt-1">Ajouté le : {{ cart.createdAt | date:'short' }}</div>
+
+      <ng-template pTemplate="footer">
+        <div class="flex gap-3 mt-1">
+          <p-button label="Supprimer" severity="danger" (onClick)="onDelete(cart)" />
+        </div>
+      </ng-template>
+    </p-card>
+    }
+  </ng-template>
+</p-dataView>
