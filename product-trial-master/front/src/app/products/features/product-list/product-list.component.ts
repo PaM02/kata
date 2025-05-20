@@ -8,6 +8,7 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from "primeng/inputtext";
 import { RatingModule } from 'primeng/rating';
 
 
@@ -33,13 +34,13 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, RatingModule, FormsModule, ButtonModule, DialogModule, ProductFormComponent, CommonModule],
+  imports: [DataViewModule, CardModule,
+    InputTextModule, RatingModule, FormsModule, ButtonModule, DialogModule, ProductFormComponent, CommonModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
-
   public readonly products = this.productsService.products;
-
+  searchText!: string;
   public isDialogVisible = false;
   public isDialogAddTocart = false;
   public isCreation = false;
@@ -93,6 +94,16 @@ export class ProductListComponent implements OnInit {
   }
 
 
+
+  get filteredProducts() {
+    const all = this.products();
+    if (!this.searchText?.trim()) return all;
+    const term = this.searchText.toLowerCase();
+    return all.filter(p =>
+      p.name.toLowerCase().includes(term) ||
+      p.category.toLowerCase().includes(term)
+    );
+  }
 
 
   public onCancel() {

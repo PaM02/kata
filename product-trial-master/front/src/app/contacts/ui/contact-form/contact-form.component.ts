@@ -13,7 +13,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
   imports: [FormsModule, ReactiveFormsModule, ButtonModule, CommonModule,
     InputTextModule, DialogModule,
     InputNumberModule,
-    InputTextareaModule,],
+    InputTextareaModule],
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss'
 })

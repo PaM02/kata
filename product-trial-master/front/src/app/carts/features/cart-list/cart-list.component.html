@@ -1,8 +1,9 @@
-<p-dataView #dv [value]="_cart">
+<p-dataView #dv [value]="_cart" [value]="filteredCarts" [paginator]="true" [rows]="2" layout="list">
   <ng-template pTemplate="list" let-carts>
     <h1 class="text-center">Quantité de produits dans le panier :
       <i class="pi pi-shopping-cart" style="font-size: 2rem" pBadge [value]="quantities"></i>
     </h1>
+    <input type="text" pInputText placeholder="Rechercher..." [(ngModel)]="searchText" />
     @for (cart of carts; track cart) {
     <p-card class="block mb-2">
       <span class="font-medium text-secondary text-sm">{{ cart.category }}</span>

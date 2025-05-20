@@ -9,6 +9,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
 import { BadgeModule } from 'primeng/badge';
+import { InputTextModule } from "primeng/inputtext";
 const emptyCart: Cart = {
   id: 0,
   code: "",
@@ -29,17 +30,16 @@ const emptyCart: Cart = {
 @Component({
   selector: 'app-cart-list',
   standalone: true,
-  imports: [DataViewModule, CardModule, RatingModule, FormsModule, ButtonModule, DialogModule, CommonModule, BadgeModule],
+  imports: [DataViewModule, CardModule, InputTextModule, RatingModule, FormsModule, ButtonModule, DialogModule, CommonModule, BadgeModule],
   templateUrl: './cart-list.component.html',
   styleUrl: './cart-list.component.css'
 })
 export class CartListComponent implements OnInit {
-  private readonly cartsService = inject(CartService);
 
-  public readonly carts = this.cartsService.carts;
   public quantities = 0;
   public isDialogVisible = false;
   public isCreation = false;
+  searchText!: string;
   public readonly editedCart = signal<Cart>(emptyCart);
   public _cart: Cart[] = [];
   ngOnInit() {
@@ -78,6 +78,16 @@ export class CartListComponent implements OnInit {
 
   private closeDialog() {
     this.isDialogVisible = false;
+  }
+
+  get filteredCarts() {
+    const all = this._cart;
+    if (!this.searchText?.trim()) return all;
+    const term = this.searchText.toLowerCase();
+    return all.filter(p =>
+      p.name.toLowerCase().includes(term) ||
+      p.category.toLowerCase().includes(term)
+    );
   }
 
 }
