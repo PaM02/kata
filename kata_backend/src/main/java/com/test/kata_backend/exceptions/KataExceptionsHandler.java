@@ -51,11 +51,10 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> exceptionHandler(Exception exception) {
-       // exception.fillInStackTrace();
+        // exception.fillInStackTrace();
         return ResponseEntity.badRequest().body(exception.fillInStackTrace().getMessage());
     }
 
 
 }
-
 
