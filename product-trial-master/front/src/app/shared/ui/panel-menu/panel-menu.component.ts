@@ -29,6 +29,11 @@ export class PanelMenuComponent {
       label: 'Panier',
       icon: 'pi pi-shopping-cart',
       routerLink: ['/carts/list']
+    },
+    {
+      label: 'Contact',
+      icon: 'pi pi-user',
+      routerLink: ['/contacts/form']
     }
   ]
 }
