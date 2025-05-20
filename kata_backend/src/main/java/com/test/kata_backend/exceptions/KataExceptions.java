@@ -1,7 +1,7 @@
 package  com.test.kata_backend.exceptions;
 
-public class Exceptions extends RuntimeException{
-    public Exceptions(String message) {
+public class KataExceptions extends RuntimeException{
+    public KataExceptions(String message) {
         super(message);
     }
 }

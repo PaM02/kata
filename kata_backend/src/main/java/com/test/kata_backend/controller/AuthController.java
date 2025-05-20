@@ -3,6 +3,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import  com.test.kata_backend.dto.LoginRequest;
+import com.test.kata_backend.dto.UserRequest;
+import com.test.kata_backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,14 +18,22 @@ import  com.test.kata_backend.AuthenticationException;
 import  com.test.kata_backend.service.LoginWeb;
 
 
-@RequestMapping("/authentification")
+
+@RequestMapping("/auth")
 @RestController
+@Tag(name = "1-Auth", description = "Endpoints d'auth")
 @RequiredArgsConstructor
 public class AuthController {
 
     private final LoginWeb loginCompanyWeb;
     private static final Logger logger = LogManager.getLogger(AuthController.class);
+    private final UserService userService;
 
+
+    @PostMapping("/account")
+    public ResponseEntity<?> createUserEntity(@RequestBody UserRequest userRequest){
+        return userService.createUserEntity(userRequest);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequest loginRequest) {

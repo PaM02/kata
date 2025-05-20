@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @ControllerAdvice
 @RestController
 @ResponseBody
-public class ExceptionsHandler {
+public class KataExceptionsHandler {
 
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<String> handleJwtException(JwtException ex) {
@@ -44,8 +44,8 @@ public class ExceptionsHandler {
         return ResponseEntity.badRequest().body("Vous n'avez pas la permission Required");
     }
 
-    @ExceptionHandler(Exceptions.class)
-    public ResponseEntity<String> handleGenericApiException(Exceptions exception) {
+    @ExceptionHandler(KataExceptions.class)
+    public ResponseEntity<String> handleGenericApiException(KataExceptions exception) {
         return ResponseEntity.badRequest().body(exception.getMessage());
     }
 

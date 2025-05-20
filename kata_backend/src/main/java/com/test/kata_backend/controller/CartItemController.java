@@ -2,12 +2,16 @@ package com.test.kata_backend.controller;
 
 import com.test.kata_backend.dto.CartItemRequest;
 import com.test.kata_backend.service.CartItemService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
+@Tag(name = "3-Carts", description = "Endpoints d'auth")
 @RequestMapping("/cart")
 public class CartItemController {
 

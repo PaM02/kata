@@ -2,6 +2,8 @@ package  com.test.kata_backend.controller;
 import  com.test.kata_backend.dto.ProductRequest;
 import  com.test.kata_backend.entity.ProductEntity;
 import  com.test.kata_backend.service.ProductService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,8 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/product")
+@SecurityRequirement(name = "bearerAuth")
+@Tag(name = "2-Products", description = "Endpoints d'auth")
 public class ProductController {
     private final ProductService productService;
 
@@ -36,7 +40,7 @@ public class ProductController {
     }
 
     @GetMapping("/item")
-    public ResponseEntity<ProductEntity> retrieveProductById(Integer id){
+    public ResponseEntity<ProductEntity> retrieveProductById(@RequestParam("id") Integer id){
         return ResponseEntity.ok(productService.retrieveProductById(id));
     }
 
