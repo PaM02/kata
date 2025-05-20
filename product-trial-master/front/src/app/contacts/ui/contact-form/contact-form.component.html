@@ -15,3 +15,16 @@
     </div>
   </form>
 </div>
+
+<p-dialog [(visible)]="messageEnvoye" [style]="{ width: '400px', borderRadius: '12px' }"
+  contentStyleClass="flex flex-col p-5" [showHeader]="false">
+  <div class="text-green-600 text-4xl">
+    <i class="pi pi-check-circle"></i>
+  </div>
+  <p class="text-gray-600 mb-4">Demande de contact envoyée avec succès.</p>
+  <div>
+    <p-button pButton [style]="{ height:'10px' }" type="button" (click)="closeDialog()" label="Fermer"
+      severity="help"></p-button>
+  </div>
+
+</p-dialog>
