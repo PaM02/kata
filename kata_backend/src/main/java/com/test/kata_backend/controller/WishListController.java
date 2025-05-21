@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/wish")
-@Tag(name = "4-Wish", description = "Endpoints d'auth")
+@Tag(name = "4. Wish", description = "Endpoints pour gérer la liste d’envies (wishlist) de l’utilisateur. Accessible uniquement aux utilisateurs authentifiés via JWT.")
 @SecurityRequirement(name = "bearerAuth")
 public class WishListController {
 
@@ -26,7 +26,7 @@ public class WishListController {
         return wishListItemService.removeFromWishlist(id);
     }
 
-    @GetMapping("/items")
+    @GetMapping("/wishlist")
     public ResponseEntity<?> retrieveWishListItem(@RequestParam("userId")  Integer userId){
         return wishListItemService.retrieveAllWishListItems(userId);
     }

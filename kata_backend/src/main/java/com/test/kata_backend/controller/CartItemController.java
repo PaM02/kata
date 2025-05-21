@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
-@Tag(name = "3-Carts", description = "Endpoints d'auth")
+@Tag(name = "3. Carts", description = "Endpoints pour gérer le panier d'achat de l'utilisateur. Accessible uniquement aux utilisateurs authentifiés.")
 @RequestMapping("/cart")
 public class CartItemController {
 
@@ -27,7 +27,7 @@ public class CartItemController {
         return cartItemService.removeFromCartItem(id);
     }
 
-    @GetMapping("/items")
+    @GetMapping("/carts")
     public ResponseEntity<?> retrieveCartItem(@RequestParam("userId")  Integer userId){
         return cartItemService.retrieveAllCartItems(userId);
     }

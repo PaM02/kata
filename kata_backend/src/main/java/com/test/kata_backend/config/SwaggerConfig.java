@@ -22,6 +22,13 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("KATA API")
                         .version("1.0")
-                        .description("Documentation de mon API avec Springdoc OpenAPI"));
+                        .description("""
+            API réalisée pour un test technique fullstack. Authentification via JWT obligatoire pour les routes protégées.
+            💡 Étapes recommandées :
+            1. Authentification
+           - POST /account → Créer un utilisateur
+           - POST /token → Récupérer le token JWT
+           - Cliquer sur "Authorize" (en haut à droite) et coller le token
+           """));
     }
 }

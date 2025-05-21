@@ -14,7 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/product")
 @SecurityRequirement(name = "bearerAuth")
-@Tag(name = "2-Products", description = "Endpoints d'auth")
+@Tag( name = "2. Products", description = "Endpoints pour gérer les produits : création, récupération, mise à jour et suppression. Accessible uniquement aux utilisateurs authentifiés.")
+
 public class ProductController {
     private final ProductService productService;
 
@@ -39,7 +40,7 @@ public class ProductController {
         return productService.removeProduct(id);
     }
 
-    @GetMapping("/item")
+    @GetMapping("/product")
     public ResponseEntity<ProductEntity> retrieveProductById(@RequestParam("id") Integer id){
         return ResponseEntity.ok(productService.retrieveProductById(id));
     }
