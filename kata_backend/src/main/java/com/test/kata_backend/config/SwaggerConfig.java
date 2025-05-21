@@ -23,12 +23,13 @@ public class SwaggerConfig {
                         .title("KATA API")
                         .version("1.0")
                         .description("""
-            API réalisée pour un test technique fullstack. Authentification via JWT obligatoire pour les routes protégées.
-            💡 Étapes recommandées :
-            1. Authentification
-           - POST /account → Créer un utilisateur
-           - POST /token → Récupérer le token JWT
-           - Cliquer sur "Authorize" (en haut à droite) et coller le token
-           """));
+                        API réalisée pour un test technique fullstack. Authentification via JWT obligatoire pour les routes protégées.
+                        💡 Étapes recommandées :
+                        1. Authentification
+                           - POST /account → Créer un utilisateur
+                           - POST /token → Récupérer le token JWT
+                        2. Cliquez sur "Authorize" (en haut à droite) et collez le token au format : Bearer <token>
+                        3. Accédez ensuite aux autres endpoints sécurisés (produits, panier, wishlist, etc.)
+                    """));
     }
 }
