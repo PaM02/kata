@@ -40,14 +40,14 @@ public class WishListItemService {
         wishListItemEntity.setUserId(wishListItemRequest.getUserId());
         wishListItemEntity.setProductId(wishListItemRequest.getProductId());
         wishListRepository.save(wishListItemEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Common.addProduct);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Common.addWish);
 
     }
 
     public  ResponseEntity<String> removeFromWishlist(Integer id){
         Optional<WishListItemEntity> wishListItemDBEntity =  wishListRepository.findById(id);
         if (wishListItemDBEntity.isEmpty()){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Common.productNotExist);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Common.productNotExistInWishList);
         }
         wishListRepository.delete(wishListItemDBEntity.get());
       return   ResponseEntity.ok(Common.productDeletedMessage);

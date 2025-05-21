@@ -27,6 +27,11 @@ public class UserService {
                     .body(Map.of(Common.message, Common.usernameExists));
         }
 
+        if (usersRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of(Common.message, Common.emailExists));
+        }
+
         UsersEntity user = UsersEntity.builder()
                 .firstname(userRequest.getFirstname())
                 .username(userRequest.getUsername())

@@ -37,7 +37,7 @@ public class CartItemService {
         if (cartItemDBEntity.isPresent()){
             cartItemDBEntity.get().setQuantity(cartItemDBEntity.get().getQuantity()+cartItemRequest.getQuantity());
             cartItemRepository.save(cartItemDBEntity.get());
-            return ResponseEntity.status(HttpStatus.CREATED).body(Common.addProduct);
+            return ResponseEntity.status(HttpStatus.CREATED).body(Common.addCart);
         }
 
         CartItemEntity cartItemEntity = new CartItemEntity();
@@ -45,13 +45,13 @@ public class CartItemService {
         cartItemEntity.setQuantity(cartItemRequest.getQuantity());
         cartItemEntity.setUserId(cartItemRequest.getUserId());
         cartItemRepository.save(cartItemEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Common.addProduct);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Common.addCart);
     }
 
     public  ResponseEntity<String> removeFromCartItem(Integer id){
       Optional<CartItemEntity> cartItemDBEntity =  cartItemRepository.findById(id);
       if (cartItemDBEntity.isEmpty()){
-          return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Common.productNotExist);
+          return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Common.productNotExistInCart);
       }
       cartItemRepository.delete(cartItemDBEntity.get());
       return ResponseEntity.ok(Common.productDeletedMessage);

@@ -45,5 +45,6 @@ public class LoginWeb {
         String refreshToken = jwtService.generateRefreshToken(user.getEmail());
         String token = jwtService.generateToken(user.getEmail());
         response.put(Common.tokenString, token);
+        response.put("user id", user.getId());
     }
 }

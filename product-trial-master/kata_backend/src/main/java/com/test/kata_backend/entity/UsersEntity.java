@@ -24,14 +24,12 @@ public class UsersEntity {
     @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "reset_password")
-    private Date resetPassword;
 
 
 
