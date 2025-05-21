@@ -26,11 +26,6 @@ export class PanelMenuComponent {
       routerLink: ['/products/list']
     },
     {
-      label: 'Panier',
-      icon: 'pi pi-shopping-cart',
-      routerLink: ['/carts/list']
-    },
-    {
       label: 'Contact',
       icon: 'pi pi-user',
       routerLink: ['/contacts/form']

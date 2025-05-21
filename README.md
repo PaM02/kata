@@ -35,4 +35,10 @@ spring.datasource.password='VOTRE_MOT_DE_PASSE'
 
 # Documentation Swagger
 # L’API est documentée avec Swagger UI disponible ici :
-http://localhost:8080/swagger-ui.html
+## Documentation de l'API
+
+La documentation complète et interactive de l'API est disponible via Swagger UI :
+
+👉 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+Elle vous permet de visualiser tous les endpoints, leurs paramètres, leurs réponses attendues, ainsi que de les tester directement après authentification (JWT).
