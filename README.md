@@ -1,4 +1,4 @@
-KATA API
+# 🛒 Mini Plateforme E-commerce – Test Technique Fullstack
 Présentation
 Cette API est réalisée dans le cadre d’un test technique fullstack. Elle gère des produits, un panier, une wishlist et l’authentification sécurisée via JWT.
 
@@ -42,3 +42,36 @@ La documentation complète et interactive de l'API est disponible via Swagger UI
 👉 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 Elle vous permet de visualiser tous les endpoints, leurs paramètres, leurs réponses attendues, ainsi que de les tester directement après authentification (JWT).
+
+🧪 Tests via Postman
+📥 1. Importation de la collection
+Importez le fichier fourni : ALTEN.postman_collection.json dans Postman.
+
+👤 2. Création d’un utilisateur
+Requête : POST /auth/account
+
+Exemple de payload :
+
+{
+  "username": "user",
+  "firstname": "John",
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+🔐 3. Connexion & gestion automatique du token
+Requête : POST /auth/token
+
+Exemple :
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+✅ À la connexion, un script Postman récupère automatiquement le token JWT et le stocke dans une variable de collection :
+
+
+pm.collectionVariables.set("token", JSON.parse(responseBody).token);
+Toutes les autres requêtes utilisent cette variable automatiquement :
+
+Authorization: Bearer {{token}}
