@@ -43,11 +43,12 @@ La documentation complète et interactive de l'API est disponible via Swagger UI
 
 Elle vous permet de visualiser tous les endpoints, leurs paramètres, leurs réponses attendues, ainsi que de les tester directement après authentification (JWT).
 
-🧪 Tests via Postman
-📥 1. Importation de la collection
+##🧪 Tests via Postman
+
+-📥 1. Importation de la collection
 Importez le fichier fourni : ALTEN.postman_collection.json dans Postman.
 
-👤 2. Création d’un utilisateur
+-👤 2. Création d’un utilisateur
 Requête : POST /auth/account
 
 Exemple de payload :
@@ -59,7 +60,7 @@ Exemple de payload :
   "password": "password123"
 }
 
-🔐 3. Connexion & gestion automatique du token
+-🔐 3. Connexion & gestion automatique du token
 Requête : POST /auth/token
 
 Exemple :
