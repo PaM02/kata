@@ -31,6 +31,7 @@ public class ProductService {
        }
 
        ProductEntity productEntity = new ProductEntity();
+       productEntity.setCode(productRequest.getCode());
        productEntity.setName(productRequest.getName());
        productEntity.setDescription(productRequest.getDescription());
        productEntity.setImage(productRequest.getImage());

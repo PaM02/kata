@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Builder
 public class ProductRequest {
     private Integer id;
-    private Integer code;
+    private String code;
     private String name;
     private String description;
     private String image;
