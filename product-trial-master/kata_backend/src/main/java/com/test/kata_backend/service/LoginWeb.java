@@ -42,7 +42,7 @@ public class LoginWeb {
 
     private void processResponse(Map<String, Object> response, UsersEntity user) {
 
-        String refreshToken = jwtService.generateRefreshToken(user.getEmail());
+        //String refreshToken = jwtService.generateRefreshToken(user.getEmail());
         String token = jwtService.generateToken(user.getEmail());
         response.put(Common.tokenString, token);
         response.put("user id", user.getId());

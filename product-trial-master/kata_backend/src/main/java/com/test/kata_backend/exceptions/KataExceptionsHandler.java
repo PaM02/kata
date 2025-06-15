@@ -18,10 +18,6 @@ public class KataExceptionsHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid JWT token");
     }
 
-    @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<String> handleExpiredJwtException(ExpiredJwtException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT token expired");
-    }
 
     @ExceptionHandler(SignatureException.class)
     public ResponseEntity<String> handleSignatureException(SignatureException ex) {

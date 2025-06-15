@@ -15,7 +15,7 @@ public class Common {
 
     public static String message = "message :";
     public static String userString = "utilisateur";
-    public static String tokenString = "jeton";
+    public static String tokenString = "token";
     public static String refreshTokenString = "jeton_de_rafraîchissement";
 
     public static String usernameExists = "Nom d'utilisateur déjà utilisé";
