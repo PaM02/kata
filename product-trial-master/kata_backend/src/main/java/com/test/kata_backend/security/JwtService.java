@@ -4,8 +4,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
@@ -20,7 +18,7 @@ public class JwtService {
     private static final long REFRESH_TOKEN_EXPIRATION_TIME = 86400 * 2;
 
     // Clé secrète utilisée pour signer le token
-    private static final byte[] JWT_SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512).getEncoded();
+    private static final SecretKey JWT_SECRET_KEY = Jwts.SIG.HS512.key().build();
 
     public String generateToken(String email) {
         return createToken(email , TOKEN_EXPIRATION_TIME);
@@ -60,7 +58,7 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token){
-        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token).getBody();
+        return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token).getPayload();
     }
 
     public String extractSubject(String token) {
@@ -85,6 +83,6 @@ public class JwtService {
     }
 
     private SecretKey getSigningKey(){
-        return Keys.hmacShaKeyFor(JWT_SECRET_KEY);
+        return JWT_SECRET_KEY;
     }
 }

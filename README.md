@@ -76,3 +76,49 @@ pm.collectionVariables.set("token", JSON.parse(responseBody).token);
 Toutes les autres requêtes utilisent cette variable automatiquement :
 
 Authorization: Bearer {{token}}
+
+### ELK
+# ELK Stack Setup (Windows)
+
+## Prérequis
+- Docker Desktop
+- Git Bash
+
+## Installation
+
+### 1. Configurer le fichier .env
+Créez un fichier `.env` avec :
+```
+ELASTIC_PASSWORD=votremotdepasse
+KIBANA_SERVICE_ACCOUNT_TOKEN=
+```
+
+### 2. Démarrer Elasticsearch
+```bash
+docker-compose up -d elasticsearch
+```
+
+### 3. Générer le token Kibana
+Ouvrir **Git Bash** et exécuter :
+```bash
+./setup-kibana-token.sh
+```
+
+Copier le token généré et le coller dans `.env`
+
+### 4. Démarrer Kibana et Logstash
+```bash
+docker-compose up -d
+```
+
+### 5. Accéder aux services
+- Elasticsearch: http://localhost:9200
+- Kibana: http://localhost:5601
+- Logstash: localhost:5000
+
+## Redémarrage
+Pour les redémarrages suivants (token déjà configuré) :
+```bash
+docker-compose down
+docker-compose up -d
+```
