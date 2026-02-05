@@ -26,6 +26,7 @@ services:
     image: docker.elastic.co/logstash/logstash:8.11.1
     container_name: logstash
     environment:
+      - ELASTIC_USERNAME=${ELASTIC_USERNAME}
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD} 
       # Config monitoring xpack
       - XPACK_MONITORING_ENABLED=true
