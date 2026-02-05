@@ -437,3 +437,9 @@ Ne pas mélanger types Integer / String dans les repositories.
 Toujours supprimer dans SQL puis dans ES pour rester synchronisé.
 
 Utiliser findByUsernameContaining pour des recherches partielles.
+mais il existe d'autre synchronisation
+SolutionComplexitéTemps réelRecommandation
+Spring Boot (manuel)⭐ Simple✅ OuiDébutant
+Logstash JDBC⭐⭐ Moyen❌ Non (délai)Bon compromis
+Debezium CDC⭐⭐⭐ Complexe✅ OuiProduction
+Triggers PostgreSQL⭐⭐⭐ Complexe✅ OuiRarement
