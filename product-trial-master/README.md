@@ -374,3 +374,66 @@ curl -u elastic:Elastic123! "http://localhost:9200/springboot-logs-*/_count?pret
 ---
 
 **Votre stack ELK est opérationnelle ! 🎉**
+
+
+## **Synchronisation manuelle elasticsearch et postgresql !**
+Document Technique – Configuration Spring Boot avec Elasticsearch et JPA
+1️⃣ Contexte
+
+Dans ce projet, nous avons besoin d’une application Spring Boot qui :
+
+Gère les utilisateurs dans une base SQL via JPA (UsersEntity).
+
+Indexe les utilisateurs dans Elasticsearch pour permettre des recherches rapides et full-text (UsersDocument).
+
+Assure la synchronisation SQL ↔ Elasticsearch à la création, mise à jour et suppression des utilisateurs.
+
+2️⃣ Structure des Entities / Documents
+a) UsersEntity – Table SQL
+id = Integer auto-incrémenté par la base SQL.
+
+Utilisé pour toutes les opérations CRUD avec JPA.
+
+b) UsersDocument – Elasticsearch
+id = String → correspond à UsersEntity.id converti en String pour Elasticsearch.
+Permet d’éviter les erreurs de conversion String -> Integer.
+
+3️⃣ Repositories
+
+Fournit toutes les méthodes CRUD SQL.
+
+Permet de rechercher un utilisateur par username ou email.
+
+b) Elasticsearch Repository – UserSearchRepository
+
+Fournit toutes les méthodes CRUD sur Elasticsearch.
+
+Les recherches sont basées sur les conventions Spring Data.
+
+Type d’id = String pour éviter les erreurs de conversion.
+
+4️⃣ Service – Gestion des utilisateurs
+Assure la synchronisation JPA ↔ Elasticsearch à la création et à la suppression.
+Recherche rapide via Elasticsearch.
+
+5️⃣ Configuration Spring Boot
+a) application.properties
+# Elasticsearch
+spring.elasticsearch.uris=http://localhost:9200
+spring.elasticsearch.username=elastic
+spring.elasticsearch.password=Elastic123!
+
+6️⃣ Kibana – Vérification des données
+Supprimer un document :
+
+DELETE users/_doc/{id}  // id = SQL id converti en String
+
+7️⃣ Bonnes pratiques
+
+Toujours utiliser le même id pour SQL et Elasticsearch pour éviter les conversions.
+
+Ne pas mélanger types Integer / String dans les repositories.
+
+Toujours supprimer dans SQL puis dans ES pour rester synchronisé.
+
+Utiliser findByUsernameContaining pour des recherches partielles.

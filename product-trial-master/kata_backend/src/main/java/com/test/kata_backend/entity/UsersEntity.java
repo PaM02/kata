@@ -1,14 +1,15 @@
 package  com.test.kata_backend.entity;
 
-import java.sql.Date;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 @Entity
 @Table(name = "users")
+@Document(indexName = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -29,11 +30,4 @@ public class UsersEntity {
 
     @Column(name = "password")
     private String password;
-
-
-
-
-
-
-
 }

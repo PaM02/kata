@@ -29,6 +29,7 @@ public class SecurityConfig  {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers( "/auth/*",
+                            "/logstash/*",
                             "/v3/api-docs/**",
                             "/swagger-ui/**",
                             "/swagger-ui.html",
